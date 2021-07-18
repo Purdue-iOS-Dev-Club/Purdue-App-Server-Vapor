@@ -39,11 +39,11 @@
       },
       {
         "package": "Purdue-App-API-Models",
-        "repositoryURL": "https://github.com/andersondav/Purdue-App-API-Models",
+        "repositoryURL": "https://github.com/Purdue-iOS-Dev-Club/Purdue-App-API-Models",
         "state": {
           "branch": null,
-          "revision": "12d5fc82f4b365f8125428ca004a6e24ce8f1b16",
-          "version": "1.0.2"
+          "revision": "fdc0041210be78025eee6eb77db0979c8dbf0573",
+          "version": "1.0.3"
         }
       },
       {
