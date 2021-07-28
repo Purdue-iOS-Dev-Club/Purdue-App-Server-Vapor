@@ -33,7 +33,7 @@ func routes(_ app: Application) throws {
             return "Invalid date".data(using: .utf8)?.encodeResponse(for: req, code: .badRequest) ?? Data().encodeResponse(for: req, code: .badRequest)
         }
         
-        let uri = URI(string: "\(DiningHelpers.baseURL)/locations/\(location.rawValue)/\(dateString)")
+        let uri = URI(string: "\(DiningHelpers.baseURL)/locations/\(locationString.replacingOccurrences(of: " ", with: "%20"))/\(dateString)")
         return req.client.get(uri).flatMap { res in
             
             let encoder = JSONEncoder()
