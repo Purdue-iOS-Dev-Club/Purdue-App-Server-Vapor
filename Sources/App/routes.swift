@@ -88,6 +88,30 @@ func routes(_ app: Application) throws {
         }
     }
     
+    app.get("directory", ":searchString") { req -> EventLoopFuture<Response> in
+        
+        guard let searchString = req.parameters.get("searchString") else {
+            return "Invalid searchString".data(using: .utf8)?.encodeResponse(for: req, code: .badRequest) ?? Data().encodeResponse(for: req, code: .badRequest)
+        }
+        
+        let uri = URI(string: "\(DirectoryHelpers.baseURL)\(searchString.replacingOccurrences(of: " ", with: "%20"))")
+        return req.client.get(uri).flatMap { res in
+            
+            guard let body = res.body, let html = body.getString(at: 0, length: body.readableBytes) else {
+                return "No data returned".data(using: .utf8)?.encodeResponse(for: req, code: .badRequest) ?? Data().encodeResponse(for: req, code: .badRequest)
+            }
+            
+            let results = DirectoryParser.parseResults(html: html)
+            
+            let encoder = JSONEncoder()
+            guard let data = try? encoder.encode(results).encodeResponse(for: req, code: .ok, contentType: "application/json; charset=utf-8") else {
+                return "Unable to encode data into JSON".data(using: .utf8)?.encodeResponse(for: req, code: .internalServerError) ?? Data().encodeResponse(for: req, code: .internalServerError)
+            }
+            
+            return data
+        }
+    }
+    
 //    app.get("dining2", "locations", ":locationName", ":date") { req -> EventLoopFuture<Response> in
 //
 //        var headers = HTTPHeaders()

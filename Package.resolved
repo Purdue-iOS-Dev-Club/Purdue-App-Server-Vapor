@@ -29,6 +29,15 @@
         }
       },
       {
+        "package": "Kanna",
+        "repositoryURL": "https://github.com/tid-kijyun/Kanna.git",
+        "state": {
+          "branch": null,
+          "revision": "f9e4922223dd0d3dfbf02ca70812cf5531fc0593",
+          "version": "5.2.7"
+        }
+      },
+      {
         "package": "multipart-kit",
         "repositoryURL": "https://github.com/vapor/multipart-kit.git",
         "state": {
@@ -42,8 +51,8 @@
         "repositoryURL": "https://github.com/Purdue-iOS-Dev-Club/Purdue-App-API-Models",
         "state": {
           "branch": null,
-          "revision": "760ebf6b58f4d1d2abce9cfa3ef35f6dc46a4edc",
-          "version": "1.0.21"
+          "revision": "cca7d79ac00397bbae7722d652453f6fe0c7e763",
+          "version": "1.0.27"
         }
       },
       {
