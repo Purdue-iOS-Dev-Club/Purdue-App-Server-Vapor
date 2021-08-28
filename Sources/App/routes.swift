@@ -13,6 +13,23 @@ func routes(_ app: Application) throws {
     app.get("dining", "locations") { req -> EventLoopFuture<Response> in
         let uri = URI(string: "\(DiningHelpers.baseURL)/locations/")
         return req.client.get(uri).flatMap { res in
+            // print(res.body?.getString(at: 0, length: 10000, encoding: .utf8))
+            
+//            let encoder = JSONEncoder()
+//            do {
+//                let locations = try res.content.decode(DiningLocationResponse.self)
+//                let data = try encoder.encode(locations).encodeResponse(for: req, code: .ok, contentType: "application/json; charset=utf-8")
+//            }
+//            catch let DecodingError.typeMismatch(type, context) {
+//                print("Type '\(type)' mismatch:", context.debugDescription)
+//                print("codingPath:", context.codingPath)
+//                return "Unable to decode JSON".data(using: .utf8)?.encodeResponse(for: req, code: .internalServerError) ?? Data().encodeResponse(for: req, code: .internalServerError)
+//            }
+//            catch let error {
+//                print(String(describing: error))
+//                return "Unable to decode JSON".data(using: .utf8)?.encodeResponse(for: req, code: .internalServerError) ?? Data().encodeResponse(for: req, code: .internalServerError)
+//            }
+//            return "Success".data(using: .utf8)?.encodeResponse(for: req, code: .internalServerError) ?? Data().encodeResponse(for: req, code: .internalServerError)
             
             let encoder = JSONEncoder()
             guard let locations = try? res.content.decode(DiningLocationResponse.self), let data = try? encoder.encode(locations).encodeResponse(for: req, code: .ok, contentType: "application/json; charset=utf-8") else {
@@ -20,6 +37,7 @@ func routes(_ app: Application) throws {
             }
             
             return data
+            
         }
     }
     
